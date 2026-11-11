@@ -28,7 +28,7 @@
 						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			},
 			{
@@ -76,14 +76,48 @@
 				"typeProperties": {
 					"source": {
 						"type": "PostgreSqlV2Source",
+						"query": {
+							"value": "Select * from Public.@{activity('Read Table details').output.firstRow.source_table_name}",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
 						"referenceName": "PostgreSqlTable1",
 						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_ADLS_Parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "landing",
+							"folder": {
+								"value": "@concat(\n    activity('Read Table details').output.firstRow.source_system,\n    '/',\n    activity('Read Table details').output.firstRow.source_table_name,\n    '/',\n    variables('start time')\n)",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
