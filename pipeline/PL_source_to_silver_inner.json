@@ -187,7 +187,7 @@
 							"type": "Expression"
 						},
 						"merge_keys": {
-							"value": "@coalesce(activity('Read Table details').output.firstRow.merge_key,'')",
+							"value": "@coalesce(activity('Read Table details').output.firstRow.merge_keys,'')",
 							"type": "Expression"
 						},
 						"load_type": {
