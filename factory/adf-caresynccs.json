@@ -1,0 +1,12 @@
+{
+	"name": "adf-caresynccs",
+	"properties": {
+		"globalParameters": {
+			"email_receipent": {
+				"type": "string",
+				"value": "leoman43467@gmail.com"
+			}
+		}
+	},
+	"location": "centralindia"
+}
