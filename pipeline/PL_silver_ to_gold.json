@@ -48,7 +48,7 @@
 						"value": "@activity('Read source tables list').output.value",
 						"type": "Expression"
 					},
-					"isSequential": false,
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Insert in progress status",
@@ -138,24 +138,6 @@
 								"notebookPath": {
 									"value": "/caresync-repo/caresync_adf/Gold/NB_@{item().gold_table_name}",
 									"type": "Expression"
-								},
-								"baseParameters": {
-									"source_system": {
-										"value": "@activity('Read Table details').output.firstRow.source_system",
-										"type": "Expression"
-									},
-									"table_name": {
-										"value": "@activity('Read Table details').output.firstRow.bronze_table_name",
-										"type": "Expression"
-									},
-									"landing_timestamp": {
-										"value": "@variables('start time')",
-										"type": "Expression"
-									},
-									"source_file_format": {
-										"value": "@coalesce(activity('Read Table details').output.firstRow.source_file_format,'')",
-										"type": "Expression"
-									}
 								}
 							},
 							"linkedServiceName": {
